@@ -3,7 +3,7 @@
 #include <time.h>
 #include <omp.h>
 
-#define N 2048
+#define N 1000
 
 double A[N][N];
 double B[N][N];
@@ -45,21 +45,11 @@ void main() {
         for (int k = 0; k < N; ++k) {
             for (int j = 0; j < N; ++j) {
                 C[i][j] += A[i][k] * B[k][j];
+                // printf("openmp thread number: %d\n", omp_get_thread_num());
                 total_flops += 2;
             }
         }
     }
-
-    // parallel ijk
-    // #pragma omp parallel for
-    // for (int i = 0; i < N; i++) {
-    //     for (int j = 0; j < N; ++j) {
-    //         for (int k = 0; k < N; ++k) {
-    //             C[i][j] += A[i][k] * B[k][j];
-    //             total_flops += 2;
-    //         }
-    //     }
-    // }
 
     clock_gettime(CLOCK_MONOTONIC, &end);
 
